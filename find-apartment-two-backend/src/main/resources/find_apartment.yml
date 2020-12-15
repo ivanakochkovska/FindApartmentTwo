@@ -1,0 +1,242 @@
+openapi: 3.0.0
+info:
+  title: Book Shop
+  description: Book CRUD API.
+  version: 1.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/ivanakochkovska/findApartmentAPI/1.0.0
+  - url: /
+paths:
+  /ad/search:
+    post:
+      summary: Search for Ad
+      tags:
+        - ad
+      operationId: getAds
+      requestBody:
+        description: Book to be added in shop
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdRequest'
+        required: false
+      responses:
+        200:
+          description: Searched for ad
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdItem'
+  /ad/save:
+    post:
+      summary: Save an ad
+      tags:
+        - ad
+      operationId: saveAd
+      requestBody:
+        description: Ad
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdItem'
+        required: true
+      responses:
+        200:
+          description: Successfully saved
+        400:
+          description: Not saved
+  /user/register:
+    post:
+      summary: Save a user
+      tags:
+        - user
+      operationId: saveUser
+      requestBody:
+        description: User
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserItem'
+      responses:
+        200:
+          description: Successfully saved user
+        400:
+          description: Not saved
+  /user/login:
+    post:
+      summary: Login
+      tags:
+        - user
+      operationId: loginUser
+      requestBody:
+        description: User
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUser'
+      responses:
+        200:
+          description: Successfully logged in
+        400:
+          description: Not logged in
+  /user/bookmarkAd:
+    post:
+      summary: Save user bookmark ad.
+      tags:
+        - user
+      operationId: bookmarkAds
+      requestBody:
+        description: User_Ad
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserAd'
+      responses:
+        200:
+          description: Successfully logged in
+        400:
+          description: Not logged in
+
+
+  /user/deleteBookmarkAd/{ad_user_id}:
+    delete:
+      tags:
+        - user
+      summary: Delete an ad from bookmark.
+      operationId: deleteBookmarkAd
+      parameters:
+        - name: ad_user_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Deleted
+        400:
+          description: Not deleted
+
+  /user/deleteAd/{ad_user_id}:
+    delete:
+      tags:
+        - user
+      summary: Delete an ad.
+      operationId: deleteAd
+      parameters:
+        - name: ad_user_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Deleted
+        400:
+          description: Not deleted
+components:
+  schemas:
+    AdItem:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 1
+        status:
+          type: boolean
+          example: true
+        price:
+          type: number
+          format: float
+          example: 250
+        name:
+          type: string
+          example: "ivana"
+        surname:
+          type: string
+          example: "Kochkovska"
+        email:
+          type: string
+          example: "ivana.kochkovska@gmail.com"
+        phone_number:
+          type: string
+          example: "0000"
+        description:
+          type: string
+          example: "Apartment in the center of the city."
+        apartment:
+          type: object
+          properties:
+            municipality:
+              type: string
+            size:
+              type: integer
+            number_of_bathrooms:
+              type: integer
+            number_of_bedrooms:
+              type: integer
+            parking_spot:
+              type: boolean
+            additional_information:
+              type: string
+              enum: [OWN_HEATING, CENTRAL_HEATING, ELECTRICITY]
+
+    AdRequest:
+      type: object
+      properties:
+        municipality:
+          type: string
+        size_start:
+          type: string
+        size_end:
+          type: string
+        number_of_bathrooms:
+          type: integer
+        number_of_bedrooms:
+          type: integer
+        parking_spot:
+          type: boolean
+        additional_information:
+          type: string
+          enum: [ OWN_HEATING, CENTRAL_HEATING, ELECTRICITY ]
+
+    UserItem:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Ivana"
+        surname:
+          type: string
+          example: "Kochkovska"
+        username:
+          type: string
+          example: "ivanakochkovska"
+        password:
+          type: string
+          example: "password"
+
+    LoginUser:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+
+
+    ErrorDetails:
+      type: object
+      properties:
+        error_message:
+          type: string
+        error_code:
+          type: string
+          enum: [ USER_NOT_FOUND, USER_ALREADY_EXISTS, PROVIDE_PERSONAL_INFORMATION, NOT_LOGGED_IN ]
+
+    UserAd:
+      type: object
+      properties:
+        ad_user_id:
+          type: string
