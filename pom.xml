@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>find-apartment-two-backend</module>
+        <module>find-apartment-two-frontend</module>
     </modules>
     <properties>
         <version.lombok>1.18.16</version.lombok>

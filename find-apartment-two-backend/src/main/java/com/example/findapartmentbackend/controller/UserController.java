@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -62,6 +64,11 @@ public class UserController implements UserApi {
     @Override
     public ResponseEntity<Void> deleteAd(String adUserId) {
         adService.deleteAd(adUserId);
+        return ResponseEntity.ok().build();
+    }
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    public ResponseEntity<Void> test() {
+
         return ResponseEntity.ok().build();
     }
 }
