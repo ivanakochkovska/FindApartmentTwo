@@ -9,8 +9,10 @@ import com.example.findapartmentbackend.repository.AdRepository;
 import com.example.findapartmentbackend.repository.UserAdRepository;
 import com.example.findapartmentbackend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +22,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+
     private  final UserRepository userRepository;
     private final AdRepository adRepository;
     private final UserAdRepository userAdRepository;

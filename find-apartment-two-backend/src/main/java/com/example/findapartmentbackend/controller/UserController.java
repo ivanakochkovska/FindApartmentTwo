@@ -4,18 +4,19 @@ import com.example.findapartmentbackend.service.AdService;
 import com.example.findapartmentbackend.service.UserAdService;
 import com.example.findapartmentbackend.service.UserService;
 import io.tej.SwaggerCodgen.api.UserApi;
+import io.tej.SwaggerCodgen.model.AdItem;
 import io.tej.SwaggerCodgen.model.LoginUser;
 import io.tej.SwaggerCodgen.model.UserAd;
 import io.tej.SwaggerCodgen.model.UserItem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.ObjectFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 
 /**
@@ -27,8 +28,7 @@ public class UserController implements UserApi {
     private final UserService userService;
     private final UserAdService userAdService;
     private final AdService adService;
-    @Autowired
-    ObjectFactory<HttpSession> httpSessionFactory;
+    private final ObjectFactory<HttpSession> httpSessionFactory;
 
     @Override
     public ResponseEntity<Void> saveUser(UserItem userItem) {
@@ -70,5 +70,16 @@ public class UserController implements UserApi {
     public ResponseEntity<Void> test() {
 
         return ResponseEntity.ok().build();
+    }
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    public ResponseEntity<Void> logout() {
+        HttpSession httpSession = httpSessionFactory.getObject();
+        httpSession.removeAttribute("username");
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<List<AdItem>> userAdsGet() {
+        return ResponseEntity.ok(adService.getAds());
     }
 }

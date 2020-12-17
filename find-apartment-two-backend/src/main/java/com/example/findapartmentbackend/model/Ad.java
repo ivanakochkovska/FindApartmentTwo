@@ -16,7 +16,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 
-public class Ad extends BaseEntity {
+public class Ad extends BaseEntity{
+
     @Column(name = "published_on")
     private LocalDate publishedOn;
     @Column(name = "status")
@@ -37,10 +38,10 @@ public class Ad extends BaseEntity {
     private String phoneNumber;
     @Column(name = "description")
     private String description;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private List<UserAd> a;
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "ad_id")
     private User user;
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)

@@ -99,6 +99,25 @@ paths:
         400:
           description: Not logged in
 
+  /user/ads:
+    get:
+      tags:
+        - user
+      summary: Get all ads published by particular user.
+      responses:
+        200:
+          description: Successfull operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdItem'
+        400:
+          description: Not logged in
+
+
+
 
   /user/deleteBookmarkAd/{ad_user_id}:
     delete:
@@ -240,3 +259,5 @@ components:
       properties:
         ad_user_id:
           type: string
+
+
