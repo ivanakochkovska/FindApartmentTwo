@@ -15,8 +15,8 @@ import javax.persistence.ManyToOne;
 @RequiredArgsConstructor
 public class UserAd extends BaseEntity {
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Ad ad;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private User user;
 }

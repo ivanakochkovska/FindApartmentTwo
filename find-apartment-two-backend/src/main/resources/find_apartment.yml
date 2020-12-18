@@ -115,6 +115,22 @@ paths:
                   $ref: '#/components/schemas/AdItem'
         400:
           description: Not logged in
+  /user/bookmarkedAds:
+    get:
+      tags:
+        - user
+      summary: Get all ads bookmarked by particular user.
+      responses:
+        200:
+          description: Successfull operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdItem'
+        400:
+          description: Not logged in
 
 
 
@@ -154,6 +170,7 @@ paths:
           description: Deleted
         400:
           description: Not deleted
+
 components:
   schemas:
     AdItem:

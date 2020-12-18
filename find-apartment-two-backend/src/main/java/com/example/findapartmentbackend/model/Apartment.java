@@ -36,4 +36,28 @@ public class Apartment extends BaseEntity {
 //    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 //    @JoinColumn(name = "ad_id")
 //    private Ad ad;
+
+    public String getMunicipality() {
+        return municipality;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public int getNumberOfBathrooms() {
+        return numberOfBathrooms;
+    }
+
+    public int getNumberOfBedrooms() {
+        return numberOfBedrooms;
+    }
+
+    public boolean isParkingSpot() {
+        return parkingSpot;
+    }
+
+    public AdditionalInformationEnum getAdditionalInformation() {
+        return additionalInformation;
+    }
 }

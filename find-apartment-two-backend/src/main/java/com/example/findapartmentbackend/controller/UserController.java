@@ -82,4 +82,16 @@ public class UserController implements UserApi {
     public ResponseEntity<List<AdItem>> userAdsGet() {
         return ResponseEntity.ok(adService.getAds());
     }
+
+    @RequestMapping(value="/logged", method = RequestMethod.GET)
+    public ResponseEntity<String> ifLoggedUser() {
+        HttpSession session = httpSessionFactory.getObject();
+        String username = (String) session.getAttribute("username");
+        return ResponseEntity.ok(username);
+    }
+
+    @Override
+    public ResponseEntity<List<AdItem>> userBookmarkedAdsGet() {
+        return ResponseEntity.ok(userAdService.getBookmarkedAds());
+    }
 }

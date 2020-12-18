@@ -41,10 +41,54 @@ public class Ad extends BaseEntity{
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private List<UserAd> a;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ad_id")
     private User user;
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "apartment_id")
     private Apartment apartment;
+
+    public LocalDate getPublishedOn() {
+        return publishedOn;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public List<UserAd> getA() {
+        return a;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Apartment getApartment() {
+        return apartment;
+    }
 }
