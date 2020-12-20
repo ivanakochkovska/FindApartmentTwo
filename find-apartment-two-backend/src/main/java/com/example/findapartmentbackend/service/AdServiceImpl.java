@@ -9,6 +9,7 @@ import com.example.findapartmentbackend.repository.AdRepository;
 import com.example.findapartmentbackend.repository.ApartmentRepository;
 import com.example.findapartmentbackend.repository.UserRepository;
 import io.tej.SwaggerCodgen.model.AdItem;
+import io.tej.SwaggerCodgen.model.AdRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.stereotype.Service;
@@ -79,6 +80,65 @@ public class AdServiceImpl implements AdService {
                 collect(Collectors.toList());
         List<AdItem> adItems = filteredAds.stream().map(adMapper::adToAddItem).collect(Collectors.toList());
         return adItems;
+    }
+
+
+    @Override
+    public List<AdItem> searchForAds(AdRequest adRequest) {
+        List<Ad> adList = adRepository.findAll();
+        String municipalityPresence = adRequest.getMunicipality();
+        Integer numBathrooms = adRequest.getNumberOfBathrooms();
+        Integer numBedrooms = adRequest.getNumberOfBedrooms();
+        Boolean parkingSpot = adRequest.getParkingSpot();
+        Integer priceFrom = adRequest.getPriceFrom();
+        Integer priceTo = adRequest.getPriceTo();
+        Integer sizeFrom = adRequest.getSizeStart();
+        Integer sizeTo = adRequest.getSizeEnd();
+        List<Ad> adListOne = adList.stream()
+                .filter(ad -> {
+                    if(municipalityPresence!=null){
+                        return ad.getApartment().getMunicipality().equals(municipalityPresence);
+                    } else {
+                        return true;
+                    }
+                }).filter(ad -> {
+                    if(numBathrooms!=null) {
+                        return (new Integer(ad.getApartment().getNumberOfBedrooms()).equals(numBathrooms));
+                    } else {
+                        return true;
+                    }
+                }).filter(ad->{
+                    if(numBedrooms!=null) {
+                        return (new Integer(ad.getApartment().getNumberOfBedrooms()).equals(numBathrooms));
+                    } else {
+                        return true;
+                    }
+                }).filter(ad->{
+                    if(parkingSpot!=null) {
+                        return (new Boolean(ad.getApartment().isParkingSpot())).equals(parkingSpot);
+                    } else {
+                        return true;
+                    }
+                }).filter(ad->{
+                    if(priceFrom!=null && priceTo!=null) {
+                        int res = new Integer((int)ad.getPrice()).compareTo(priceFrom);
+                        int res1 = new Integer((int) ad.getPrice()).compareTo(priceTo);
+                            return res >=0 && res1<=0;
+                    } else {
+                        return true;
+                    }
+                }).filter(ad-> {
+                    if (sizeFrom != null && sizeTo != null) {
+                        int res = new Integer((int) ad.getApartment().getSize()).compareTo(sizeFrom);
+                        int res1 = new Integer((int) ad.getApartment().getSize()).compareTo(sizeTo);
+                        return res >= 0 && res1 <= 0;
+                    } else {
+                        return true;
+                    }
+                }).collect(Collectors.toList());
+
+
+        return adListOne.stream().map(adMapper::adToAddItem).collect(Collectors.toList());
     }
 }
 

@@ -24,11 +24,15 @@ paths:
         required: false
       responses:
         200:
-          description: Searched for ad
+          description: Successfull operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AdItem'
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdItem'
+        400:
+          description: Not logged in
   /ad/save:
     post:
       summary: Save an ad
@@ -223,10 +227,14 @@ components:
       properties:
         municipality:
           type: string
+        price_from:
+          type: integer
+        price_to:
+          type: integer
         size_start:
-          type: string
+          type: integer
         size_end:
-          type: string
+          type: integer
         number_of_bathrooms:
           type: integer
         number_of_bedrooms:

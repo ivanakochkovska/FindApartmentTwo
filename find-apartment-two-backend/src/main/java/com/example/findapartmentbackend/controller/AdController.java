@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,9 +23,8 @@ public class AdController implements AdApi {
     private final AdditionaInformationMapper additionaInformationMapper;
 
     @Override
-    public ResponseEntity<AdItem> getAds(AdRequest adRequest) {
-        //adService.searchForAds(adRequest.getMunicipality(),adRequest.s)
-        return null;
+    public ResponseEntity<List<AdItem>> getAds(AdRequest adRequest) {
+        return ResponseEntity.ok(adService.searchForAds(adRequest));
     }
 
     private boolean ifLogin(String username) {

@@ -2,6 +2,7 @@ package com.example.findapartmentbackend.service;
 
 import com.example.findapartmentbackend.model.AdditionalInformationEnum;
 import io.tej.SwaggerCodgen.model.AdItem;
+import io.tej.SwaggerCodgen.model.AdRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,4 +16,5 @@ public interface AdService {
                 String municipality, int size, int numberOfBathrooms, int numberOfBedrooms, boolean parkingSpot, AdditionalInformationEnum additionalInformationEnum);
     void deleteAd(String adId);
     List<AdItem> getAds();
+    List<AdItem> searchForAds(AdRequest adRequest);
 }
